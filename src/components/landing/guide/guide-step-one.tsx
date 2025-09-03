@@ -1,5 +1,4 @@
 import { consult_step } from "@/utils/images";
-import React from "react";
 
 const GuideStepOne = () => {
   return (

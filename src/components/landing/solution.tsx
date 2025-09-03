@@ -1,6 +1,4 @@
-import { MdOutlineSchool, MdSolarPower } from "react-icons/md";
-import { LuBrain } from "react-icons/lu";
-import { FiClock } from "react-icons/fi";
+import { MdSolarPower } from "react-icons/md";
 import Carousel from "../ui/carousel";
 import {
   carousel_battery,
@@ -27,7 +25,7 @@ const carouselItems = [
     image: carousel_inverter,
     color: "bg-secondary-bg",
     textColor: "text-secondary-mutedPurple",
-    icon: <GiPowerGenerator  size={34} color="#005BB5" />,
+    icon: <GiPowerGenerator size={34} color="#005BB5" />,
   },
   {
     title: "Batteries",

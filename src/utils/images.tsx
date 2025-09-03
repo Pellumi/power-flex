@@ -1,14 +1,14 @@
 import landing_img from "@/assets/landing_img.webp";
 import logo_main from "@/assets/power_flex_logo.webp";
-import carousel_solar from "@/assets/carousel_solar.png";
-import carousel_inverter from "@/assets/carousel_inverter.png";
-import carousel_battery from "@/assets/carousel_battery.png";
+import carousel_solar from "@/assets/carousel_solar.webp";
+import carousel_inverter from "@/assets/carousel_inverter.webp";
+import carousel_battery from "@/assets/carousel_battery.webp";
 import instagram_logo from "@/assets/instagram.webp";
 import facebook_logo from "@/assets/face.webp";
 import linkedin_logo from "@/assets/linkedin.webp";
-import consult_step from "@/assets/consult_step.png";
-import install_step from "@/assets/install_step.png";
-import power_step from "@/assets/power_step.png";
+import consult_step from "@/assets/consult_step.webp";
+import install_step from "@/assets/install_step.webp";
+import power_step from "@/assets/power_step.webp";
 
 export {
   logo_main,

@@ -141,7 +141,7 @@ interface DialogTriggerProps {
 }
 
 export const DialogTrigger = ({ children, onClick }: DialogTriggerProps) => {
-  return cloneElement(children, {
+  return cloneElement(children, { // @ts-ignore
     onClick: () => onClick(true),
   });
 };

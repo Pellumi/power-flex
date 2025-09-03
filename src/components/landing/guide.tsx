@@ -1,4 +1,3 @@
-import React from "react";
 import GuideStepOne from "./guide/guide-step-one";
 import GuideStepTwo from "./guide/guide-step-two";
 import GuideStepThree from "./guide/guide-step-three";
