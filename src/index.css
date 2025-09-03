@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+
+@theme {
+  --breakpoint-container: 820px;
+  --breakpoint-land: 950px;
+
+  --color-muted: #E6EDF5;
+  --color-muted-foreground: #5B6E99;
+
+  --color-background: #ffffff;
+  --color-foreground: #0D1A33;
+
+  --color-border: #E2E8F0;
+  --color-input: #CBD5E1;
+  --color-ring: #1835B3;
+
+  --color-primary-bg: #F0F4FF;
+  --color-primary: #1835B3;
+  --color-primary-main: #1835B3;
+  --color-primary-blue: #1835B3;
+  --color-primary-danger: #EA4335;
+  --color-primary-foreground: #ffffff;
+
+  --color-border-main: #E6EDF5;
+
+  --color-secondary-bg: #AEE4F933;
+  --color-secondary-dark: #40C0F0;
+  --color-secondary-variant: #5CCAF3;
+  --color-secondary-foreground: #1e293b;
+
+  --color-neutral-bg: #F5F7FA;
+  --color-neutral-new: #334155;
+  --color-neutral-light: #94A3B8;
+  --color-neutral-shadow: #00000014;
+  --color-neutral-ghost: #F8FAFC;
+  --color-neutral-border: #CBD5E1;
+  --color-neutral-gray: #64748B;
+  --color-neutral-placeholder: #94A3B8;
+
+  --color-text-main: #1C1D1D;
+  --color-text-ghost: #94A3B8;
+  --color-text-placeholder: #CBD5E1;
+
+  /* Destructive colors */
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+
+  /* Success colors */
+  --color-success: #22c55e;
+  --color-success-foreground: #f8fafc;
+
+  /* Warning colors */
+  --color-warning: #F9B23D;
+  --color-warning-foreground: #1e293b;
+
+  /* Info colors */
+  --color-info: #40C0F0;
+  --color-info-foreground: #ffffff;
+
+  /* Accent colors */
+  --color-accent: #AEE4F9;
+  --color-accent-foreground: #1835B3;
+
+  /* Popover colors */
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0D1A33;
+
+  /* Card colors */
+  --color-card: #ffffff;
+  --color-card-foreground: #0D1A33;
+
+  --font-inter: "Inter", sans-serif;
+  --font-metropolis: "Metropolis", sans-serif;
+
+  /* Box Shadows */
+  --shadow-table-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-card-shadow: 0px 0px 47.58px 0px;
+  --shadow-nav-shadow: 0px 0px 20px 4px #36404326;
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* Keyframes */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
