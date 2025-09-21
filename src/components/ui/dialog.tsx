@@ -27,7 +27,7 @@ export const ButtonDismissDialog = ({
   if (!open) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999] !m-0">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[5000] !m-0">
       <div
         className="bg-white rounded-lg shadow-lg w-full relative"
         style={{ maxWidth, height }}
@@ -79,7 +79,7 @@ export const OutsideDismissDialog = ({
 
   return ReactDOM.createPortal(
     <div
-      className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-white bg-opacity-30 z-[9999] cursor-pointer"
+      className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-white bg-opacity-30 z-[5000] cursor-pointer"
       onClick={() => onOpenChange}
     >
       <div
@@ -120,7 +120,7 @@ export const CustomBlurBgDialog = ({
 
   return (
     <div
-      className="fixed max-w-[100vw] pt-6 h-screen overflow-y-auto inset-0 flex items-center bg-white/10 justify-center backdrop-blur-sm backdrop-brightness-75 backdrop-saturate-150 z-[9999] cursor-pointer"
+      className="fixed max-w-[100vw] pt-6 h-screen overflow-y-auto inset-0 flex items-center bg-white/10 justify-center backdrop-blur-sm backdrop-brightness-75 backdrop-saturate-150 z-[5000] cursor-pointer"
       onClick={() => onOpenChange(false)}
     >
       <div

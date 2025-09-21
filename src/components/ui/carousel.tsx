@@ -124,7 +124,7 @@ export default function Carousel({
                   <p className="font-sans text-lg text-neutral-darkCharcoal mb-6">
                     {item.description}
                   </p>
-                  <Button>Learn more</Button>
+                  {/* <Button>Learn more</Button> */}
                 </div>
               </div>
             </div>

@@ -7,8 +7,8 @@ import {
 
 const navLinks = [
   { title: "Home", link: "/#home" },
-  { title: "About Us", link: "/#about-us" },
   { title: "Products", link: "/#products" },
+  { title: "About Us", link: "/#about-us" },
   { title: "Financing", link: "/#financing" },
   { title: "How it Works", link: "/#how-it-works" },
   { title: "Contact Us", link: "/#contact-us" },

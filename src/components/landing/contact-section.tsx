@@ -1,11 +1,128 @@
-import { Building2, Clock, MapPin, Phone } from "lucide-react";
-import { CustomBlurBgDialog } from "../ui/dialog";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { submitContactForm } from "@/utils/services";
 import { useState } from "react";
+import { useToast } from "../ui/use-toast";
+import type { ContactFormDto } from "@/utils/types";
+import { Building2, Clock, MapPin, Phone, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
+import { CustomBlurBgDialog } from "../ui/dialog";
 import { CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const ContactSection = () => {
+  const { toast } = useToast()
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState<ContactFormDto>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Partial<ContactFormDto>>({});
+
+  const validateForm = (): boolean => {
+    const newErrors: Partial<ContactFormDto> = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof ContactFormDto]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      await submitContactForm(formData);
+
+      toast({
+        title: "Message sent successfully!",
+        variant: "success",
+        duration: 3000,
+      })
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+      setShow(false);
+
+    } catch (error: any) {
+      toast({
+        title: "Failed to send message",
+        variant: "destructive",
+        duration: 3000,
+      })
+      console.error("Error submitting contact form:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    });
+    setErrors({});
+  };
+
+  const handleDialogChange = (open: boolean) => {
+    setShow(open);
+    if (!open) {
+      resetForm();
+    }
+  };
 
   return (
     <div id="contact-us" className="bg-primary py-20 md:py-36 flex flex-col items-center">
@@ -18,7 +135,7 @@ const ContactSection = () => {
               </h1>
               <div className="mx-10 mt-10">
                 <p className="text-[1rem] leading-tight md:text-[1.25rem]">
-                  It’s not just an inquiry. It’s guidance, trusted solutions,
+                  It's not just an inquiry. It's guidance, trusted solutions,
                   and energy independence.
                 </p>
               </div>
@@ -78,9 +195,16 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
-      <Button variant={"outline"} className="!mx-auto mt-10 hover:bg-gray-200 hover:text-black" onClick={() => setShow(true)} size={"lg"}>Send us a Message</Button>
+      <Button
+        variant={"outline"}
+        className="!mx-auto mt-10 hover:bg-gray-200 hover:text-black"
+        onClick={() => setShow(true)}
+        size={"lg"}
+      >
+        Send us a Message
+      </Button>
 
-      <CustomBlurBgDialog open={show} onOpenChange={setShow} maxWidth="700px">
+      <CustomBlurBgDialog open={show} onOpenChange={handleDialogChange} maxWidth="700px">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Send us a Message</CardTitle>
           <p className="text-muted-foreground">
@@ -88,66 +212,135 @@ const ContactSection = () => {
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label htmlFor="firstName" className="text-sm font-medium">
+                  First Name *
+                </label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  className={`w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring ${errors.firstName ? 'border-red-500' : 'border-input'
+                    }`}
+                  placeholder="John"
+                  disabled={isLoading}
+                />
+                {errors.firstName && (
+                  <p className="text-sm text-red-500">{errors.firstName}</p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="lastName" className="text-sm font-medium">
+                  Last Name *
+                </label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  className={`w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring ${errors.lastName ? 'border-red-500' : 'border-input'
+                    }`}
+                  placeholder="Doe"
+                  disabled={isLoading}
+                />
+                {errors.lastName && (
+                  <p className="text-sm text-red-500">{errors.lastName}</p>
+                )}
+              </div>
+            </div>
             <div className="space-y-2">
-              <label htmlFor="firstName" className="text-sm font-medium">
-                First Name
+              <label htmlFor="email" className="text-sm font-medium">
+                Email Address *
               </label>
               <input
-                id="firstName"
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className={`w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring ${errors.email ? 'border-red-500' : 'border-input'
+                  }`}
+                placeholder="john@example.com"
+                disabled={isLoading}
+              />
+              {errors.email && (
+                <p className="text-sm text-red-500">{errors.email}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="phone" className="text-sm font-medium">
+                Phone Number *
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className={`w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring ${errors.phone ? 'border-red-500' : 'border-input'
+                  }`}
+                placeholder="+234 xxx xxx xxxx"
+                disabled={isLoading}
+              />
+              {errors.phone && (
+                <p className="text-sm text-red-500">{errors.phone}</p>
+              )}
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="subject" className="text-sm font-medium">
+                Subject
+              </label>
+              <input
+                id="subject"
+                name="subject"
                 type="text"
+                value={formData.subject}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring"
-                placeholder="John"
+                placeholder="How can we help you?"
+                disabled={isLoading}
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="lastName" className="text-sm font-medium">
-                Last Name
+              <label htmlFor="message" className="text-sm font-medium">
+                Message *
               </label>
-              <input
-                id="lastName"
-                type="text"
-                className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring"
-                placeholder="Doe"
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                value={formData.message}
+                onChange={handleInputChange}
+                className={`w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring resize-none ${errors.message ? 'border-red-500' : 'border-input'
+                  }`}
+                placeholder="Tell us more about your inquiry..."
+                disabled={isLoading}
               />
+              {errors.message && (
+                <p className="text-sm text-red-500">{errors.message}</p>
+              )}
             </div>
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring"
-              placeholder="john@example.com"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="subject" className="text-sm font-medium">
-              Subject
-            </label>
-            <input
-              id="subject"
-              type="text"
-              className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring"
-              placeholder="How can we help you?"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-medium">
-              Message
-            </label>
-            <textarea
-              id="message"
-              rows={5}
-              className="w-full px-3 py-2 border border-input rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-              placeholder="Tell us more about your inquiry..."
-            />
-          </div>
-          <Button className="w-full" size="lg">
-            Send Message
-          </Button>
+            <Button // @ts-ignore
+              type="submit"
+              className="w-full"
+              size="lg"
+              loading={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending Message...
+                </>
+              ) : (
+                'Send Message'
+              )}
+            </Button>
+          </form>
         </CardContent>
       </CustomBlurBgDialog>
     </div>

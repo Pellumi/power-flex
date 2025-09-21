@@ -13,7 +13,7 @@ const Home = () => {
             <div className="mb-10 text-lg font-light lg:text-3xl">
               <p>
                 Custom solar systems with convenient installment plans to power
-                your home or business
+                your home or business.
               </p>
             </div>
             <div className="flex items-start gap-4">
@@ -22,7 +22,7 @@ const Home = () => {
                   Explore Products
                 </span>
               </a>
-              <Button size="lg" asLink to="/demo" data-discover="true">
+              <Button size="lg" asLink to="/quotation/details" data-discover="true">
                 Get a Quote
               </Button>
             </div>

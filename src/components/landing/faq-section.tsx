@@ -27,11 +27,11 @@ const faqs = [
   },
   {
     question: "What type of products do you offer?",
-    answer: `Solar Panels
+    answer: `Solar Panels,
 
-  - Inverters
-  - Batteries
-  - Installation & After-Sales Support`,
+  - Inverters,
+  - Batteries,
+  - Installation & After-Sales Support.`,
   },
   {
     question: "Are the payment options flexible?",
@@ -50,12 +50,12 @@ const faqs = [
       "Yes, our solutions are customized to meet your energy needs, whether for a single appliance, your entire home, or business operations.",
   },
   {
-    question: "What warranty do the products come with",
+    question: "What warranty do the products come with?",
     answer:
       "All products come with a manufacturer’s warranty: panels up to 25 years, with Inverters & Batteries up to 3 years.",
   },
   {
-    question: "Is the system scalable",
+    question: "Is the system scalable?",
     answer:
       "Yes, our solutions support households and businesses, adapting to growing energy needs.",
   },

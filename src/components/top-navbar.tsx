@@ -1,12 +1,11 @@
 import { Menu, X } from "lucide-react";
-import GlassSurface from "./ui/glass-surface";
 import { logo_main } from "@/utils/images";
 import { useState } from "react";
 
 const navLinks = [
   { title: "Home", link: "/#home" },
-  { title: "About Us", link: "/#about-us" },
   { title: "Products", link: "/#products" },
+  { title: "About Us", link: "/#about-us" },
   { title: "Financing", link: "/#financing" },
   { title: "How it Works", link: "/#how-it-works" },
   { title: "Contact Us", link: "/#contact-us" },
@@ -25,10 +24,7 @@ const TopNavbar = () => {
 
   return (
     <>
-      <GlassSurface
-        width="100%"
-        className="h-12 rounded-none fixed top-0 z-[9999] !bg-white/60"
-      >
+      <div className="w-full h-max bg-white rounded-none fixed top-0 z-[4000]">
         <div className="w-[90vw] mx-auto flex flex-row items-center justify-between h-12 my-4 max-w-[1440px]">
           <a className="flex flex-row items-center" href="/">
             <div className="w-full max-md:w-3/5 h-12 relative flex items-center">
@@ -64,7 +60,7 @@ const TopNavbar = () => {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </GlassSurface>
+      </div>
 
       {isMobileMenuOpen && (
         <div
