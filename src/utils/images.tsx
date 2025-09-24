@@ -8,7 +8,7 @@ import facebook_logo from "@/assets/face.webp";
 import linkedin_logo from "@/assets/linkedin.webp";
 import consult_step from "@/assets/consult_step.webp";
 import install_step from "@/assets/install_step.webp";
-import power_step from "@/assets/power_step.webp";
+import power_step from "@/assets/power_step.png";
 
 export {
   logo_main,

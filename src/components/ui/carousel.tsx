@@ -58,7 +58,7 @@ export default function Carousel({
     },
     [isTransitioning, currentIndex]
   );
-  
+
   // @ts-ignore
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
@@ -118,10 +118,15 @@ export default function Carousel({
                   >
                     {item.icon}
                   </div>
-                  <h3 className={cn("text-3xl font-bold mb-4", item.textColor)}>
+                  <h3
+                    className={cn(
+                      "text-3xl font-normal mb-4",
+                      item.textColor
+                    )}
+                  >
                     {item.title}
                   </h3>
-                  <p className="font-sans text-lg text-neutral-darkCharcoal mb-6">
+                  <p className="font-extralight text-base md:text-xl leading-relaxed mb-6">
                     {item.description}
                   </p>
                   {/* <Button>Learn more</Button> */}
